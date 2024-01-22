@@ -11,7 +11,16 @@ $result = mysqli_query($dbcnx,"SELECT count(*) FROM wp_s3cu_form_on_landing");
 if (!$result) {echo('Неверный запрос: ' . mysqli_error($dbcnx));}
 $myrow = mysqli_fetch_row($result);
 $count = $myrow[0];
-print($count);
+
+
+$dir = opendir('log/apache2');
+$logCount = 0;
+while($file = readdir($dir)){
+    if($file == '.' || $file == '..' || is_dir('log/apache2' . $file)){
+        continue;
+    }
+    $logCount++;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -143,14 +152,14 @@ print($count);
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>53<sup style="font-size: 20px">%</sup></h3>
+                <h3><?print($logCount);?></h3>
 
-                <p>Bounce Rate</p>
+                <p>Файлы логов</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
               </div>
-              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer">Просмотр <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
         
