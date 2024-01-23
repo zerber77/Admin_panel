@@ -15,6 +15,8 @@ const tableHeader = `<table class="table">
 </table>
 `
 
+const fileToHTML = item =>`<div>${item['i']}</div>`
+
 const toHTML = item =>`<tr>
       <th scope="row">${item.id}</th>
       <td>${item.point}</td>
@@ -39,11 +41,33 @@ async function getDatabase(){
 //    document.querySelector('#tbl').innerHTML = table
 }
 
+async function getFile(file) {
+    document.querySelector('.connectedSortable').innerHTML = "<div>ЗАГРУЗКА....</div>"
+    let response = await  fetch('Api/file.php?file='+file)
+    let data = await response.json();
+
+    const fileList = data.response.map(item=>{
+        if(item['i'] ===false) return ''
+        else return fileToHTML(item)
+    })
+    const str = (fileList.join('\r\n'))
+    console.log(fileList);
+    document.querySelector('.connectedSortable').innerHTML = ""
+    document.querySelector('.connectedSortable').innerHTML = str
+}
+
 
 addEventListener('click',(event)=>{
-    console.log(event.target)
+ //   console.log(event.target)
     if (event.target.dataset.database) {
         getDatabase()
+    }
+})
+
+addEventListener('click',(event)=>{
+//    console.log(event.target)
+    if (event.target.dataset.file) {
+        getFile(event.target.dataset.file)
     }
 })
 

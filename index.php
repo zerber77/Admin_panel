@@ -103,7 +103,7 @@ while($file = readdir($dir)){
                     <li class="nav-item">
                         <a href="#" class="nav-link active">
                             <i class="far fa-circle nav-icon"></i>
-                            <p><?echo $value?></p>
+                            <p data-file="<?echo $value?>"><?echo $value.' '.filesize('log/apache2/'.$value).' байт(а)'?></p>
                         </a>
                     </li>
                     <?}?>
@@ -169,7 +169,7 @@ while($file = readdir($dir)){
         <!-- Main row -->
         <div class="row">
           <!-- Left col -->
-          <section class="col-lg-7 connectedSortable">
+          <section class="col-lg-10 connectedSortable">
 
           </section>
           <!-- /.Left col -->
