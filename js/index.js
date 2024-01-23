@@ -25,12 +25,13 @@ const toHTML = item =>`<tr>
     </tr>
 `
 async function getDatabase(){
+    document.querySelector('.connectedSortable').innerHTML = "<div>ЗАГРУЗКА....</div>"
     let response = await  fetch('Api/database.php')
     let data = await response.json();
     const table = data.response.map(item=>{
         return toHTML(item)
     })
-    console.log(table)
+    document.querySelector('.connectedSortable').innerHTML = ""
     document.querySelector('.connectedSortable').innerHTML = tableHeader
     let tbl = document.getElementById('tbl')
     const str = (table.join(''))
